@@ -77,6 +77,10 @@ def permutations():
             yield(int(float(i)/bitmap_max*100), opts)
 
 def _build(dstdir, font, permutations):
+    # Deal with AppImage clobbering PWD.
+    if 'OWD' in os.environ:
+        dstdir = join(os.environ['OWD'], dstdir)
+
     for prcnt, opts in permutations:
         # Open the original font
         fnt = fontforge.open(font)
